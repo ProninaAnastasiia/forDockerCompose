@@ -8,9 +8,8 @@ public class HomeController : ControllerBase
     private HttpClient _client;
     public HomeController()
     {
-        _client = new HttpClient();
-        var uri = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["uri"];
-        _client.BaseAddress = new Uri(uri);
+        _client = new HttpClient();     
+        _client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("URI_ENV") ?? string.Empty);
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         
     }
